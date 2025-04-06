@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 
 export async function POST(request: Request) {
   try {
-    const customWordsFile = 'src/app/api/upload/custom_words.json';
+    const customWordsFile = process.cwd() + '/src/app/api/upload/custom_words.json';
 
     const body = await request.json();
     const { words } = body;

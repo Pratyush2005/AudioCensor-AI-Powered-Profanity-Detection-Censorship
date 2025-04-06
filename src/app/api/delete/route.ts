@@ -4,24 +4,32 @@ import fs from "fs";
 
 export async function DELETE(req: NextRequest) {
     const url = new URL(req.url);
-    const file = url.searchParams.get("file");
+    const fileName = url.searchParams.get("file");
 
-    if (!file) {
+    if (!fileName) {
         return NextResponse.json({ error: "File name is required" }, { status: 400 });
     }
 
-    const filePath = path.join(process.cwd(), "public/censored_audio", file);
+    const filePath = path.join(process.cwd(), "public/censored_audio", fileName);
 
     if (!fs.existsSync(filePath)) {
         return NextResponse.json({ error: "File not found" }, { status: 404 });
     }
 
     try {
-        await fs.promises.unlink(filePath);
-        console.log(`File deleted successfully: ${filePath}`);
-        return NextResponse.json({ message: "File deleted successfully" }, { status: 200 });
-    } catch (error) {
-        console.error(`Error deleting file: ${filePath}`, error);
-        return NextResponse.json({ error: "Error deleting file", details: (error as Error).message }, { status: 500 });
+        const fileStream = fs.createReadStream(filePath);
+        return new NextResponse(fileStream as any, {
+            headers: {
+                'Content-Type': 'audio/mpeg',
+                'Content-Disposition': `attachment; filename="${fileName}"`,
+            },
+        });
+    } finally {
+        try {
+            await fs.promises.unlink(filePath);
+            console.log(`Censored file auto-deleted after download: ${filePath}`);
+        } catch (error) {
+            console.error(`Failed to delete file after download: ${filePath}`, error);
+        }
     }
 }
