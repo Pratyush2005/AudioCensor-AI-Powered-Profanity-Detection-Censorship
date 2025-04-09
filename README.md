@@ -1,6 +1,6 @@
-# 🔇 Chup – Audio Profanity Censoring App
+# 🔇 AudioCensor-AI-Powered-Profanity-Detection-Censorship
 
-**Chup** is a full-stack Next.js application that censors profane or user-defined custom words in audio files. It uses [AssemblyAI](https://www.assemblyai.com/) to transcribe audio, detects sensitive words, and replaces them with beeps using FFmpeg.
+**AudioCensor** is a full-stack Next.js application that censors profane or user-defined custom words in audio files. It uses [AssemblyAI](https://www.assemblyai.com/) to transcribe audio, detects sensitive words, and replaces them with beeps using FFmpeg.
 
 ---
 
@@ -30,8 +30,8 @@
 
 ### 1. Clone the repository
 ```bash
-git clone https://github.com/your-username/chup.git
-cd chup
+git clone https://github.com/Pratyush2005/AudioCensor-AI-Powered-Profanity-Detection-Censorship
+cd AudioCensor-AI-Powered-Profanity-Detection-Censorship
 ```
 
 ### 2. Install dependencies
